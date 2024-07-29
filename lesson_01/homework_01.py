@@ -82,3 +82,4 @@ p_book_2 = p_book_1 + 2
 p_book_3 = (p_book_1 + p_book_2) // 2
 p_total = p_book_1 + p_book_2 + p_book_3
 print(f"Загальна вартість книг {p_total} грн.")
+
