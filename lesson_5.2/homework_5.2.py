@@ -40,3 +40,5 @@ for record in people_records:
 
 print("\nУсі обрані люди мають вік ≥ 30:", all_older_than_30)
 
+
+
