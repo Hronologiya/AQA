@@ -21,7 +21,6 @@ people_records = [
   ('Ava', 'White', 42, 'Journalist', 'San Diego'),
   ('Ethan', 'Anderson', 36, 'Product Manager', 'Phoenix')
 ]
-
 # Додамо свій запис на початок списку
 my_record = ('YourName', 'YourSurname', 30, 'YourProfession', 'YourCity')
 people_records.insert(0, my_record)
@@ -39,6 +38,3 @@ for record in people_records:
     print(record)
 
 print("\nУсі обрані люди мають вік ≥ 30:", all_older_than_30)
-
-
-
