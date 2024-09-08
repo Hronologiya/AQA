@@ -1,0 +1,3 @@
+[INFO|homework_10|L50] 2024-09-08T14:59:44+0100: Login event - Username: test_user, Status: success
+[WARNING|homework_10|L52] 2024-09-08T14:59:44+0100: Login event - Username: test_user, Status: expired
+[ERROR|homework_10|L54] 2024-09-08T14:59:44+0100: Login event - Username: test_user, Status: failed
