@@ -1,0 +1,2 @@
+2024-09-14 11:43:03,969 - Function wrapper called with arguments ([1, 2, 3, 4, 5],) and {}. Result: [5, 4, 3, 2, 1]
+2024-09-14 11:43:03,969 - Function wrapper called with arguments (10,) and {}. Result: [0, 2, 4, 6, 8, 10]
