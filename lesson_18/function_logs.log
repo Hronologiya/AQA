@@ -1,0 +1,3 @@
+2024-09-14 11:43:30,037 - Function wrapper called with arguments (10, 2) and {}. Result: 5.0
+2024-09-14 11:43:30,037 - Exception in function sample_function: division by zero
+2024-09-14 11:43:30,038 - Function wrapper called with arguments (10, 0) and {}. Result: None
