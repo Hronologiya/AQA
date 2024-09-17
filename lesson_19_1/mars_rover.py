@@ -7,15 +7,23 @@ The task needs to be done using the requests module.
 
 import requests
 import json
+import logging
 
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    handlers=[
+                        logging.FileHandler('app.log'),
+                        logging.StreamHandler()
+                    ])
 
 def fetch_mars_photos(sol, camera, api_key):
     url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos'
     params = {'sol': sol, 'camera': camera, 'api_key': api_key}
     response = requests.get(url, params=params)
 
-    print("Response status:", response.status_code)
-    print("Server response (JSON):", response.json())
+    logging.info("Response status: %s", response.status_code)
+    logging.info("Server response (JSON): %s", response.json())
 
     response.raise_for_status()
 
@@ -24,13 +32,11 @@ def fetch_mars_photos(sol, camera, api_key):
 
     return response.json()['photos']
 
-
 def save_photo(photo_url, file_name):
     response = requests.get(photo_url)
     response.raise_for_status()
     with open(file_name, 'wb') as file:
         file.write(response.content)
-
 
 def main():
     sol = 1000
@@ -41,8 +47,7 @@ def main():
     for idx, photo in enumerate(photos[:2], start=1):
         file_name = f'mars_photo{idx}.jpg'
         save_photo(photo['img_src'], file_name)
-        print(f'Saved {file_name}')
-
+        logging.info('Saved %s', file_name)
 
 if __name__ == "__main__":
     main()
