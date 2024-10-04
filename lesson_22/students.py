@@ -49,7 +49,7 @@ class Enrollment(Base):
     student = relationship("Student", backref="enrollments")
     course = relationship("Course", backref="enrollments")
 
-engine = create_engine('mysql://root:Wwww1122@localhost/students')
+engine = create_engine('mysql://login:password@localhost/students')
 logger.info('Creating database tables...')
 Base.metadata.create_all(engine)
 logger.info('Database tables created.')
