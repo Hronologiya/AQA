@@ -20,12 +20,11 @@ def get_parcel_status(driver, tracking_number):
         EC.element_to_be_clickable((By.XPATH, "//*[@id='en']"))
     ).send_keys(tracking_number)
 
-    # Натискаємо кнопку "Знайти" за новим XPath
     WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH, "//*[@id='np-number-input-desktop-btn-search-en']"))
     ).click()
 
-    # Отримуємо статус посилки
+
     parcel_status = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'header__status-text')]"))
     )
@@ -35,7 +34,7 @@ def get_parcel_status(driver, tracking_number):
 
 def test_parcel_status(driver):
     tracking_number = "20400396721741"
-    expected_status_keyword = "Отримана"  # Ключове слово для перевірки статусу
+    expected_status_keyword = "Отримана"
 
     actual_status = get_parcel_status(driver, tracking_number)
 
