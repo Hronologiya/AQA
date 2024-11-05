@@ -1,6 +1,6 @@
 import psycopg2
 
-DATABASE_URL = "postgresql://postgres:password@db:5432/mydatabase"
+DATABASE_URL = "******://******:******@******:5432/******"
 
 def init_db():
     conn = psycopg2.connect(DATABASE_URL)
