@@ -2,10 +2,18 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/homework31']],
+                          userRemoteConfigs: [[url: 'https://github.com/Hronologiya/AQA.git']]])
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'pip install -r requirements.txt'
+                    // Install dependencies from requirements.txt
+                    sh '/usr/bin/python3 -m pip install -r requirements.txt'
                 }
             }
         }
@@ -13,23 +21,42 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'pytest'
+                    // Run the tests using pytest
+                    sh '/usr/bin/python3 -m pytest tests/'
                 }
             }
         }
 
         stage('Publish Results') {
             steps {
-                junit 'tests/results/*.xml'
+                script {
+                    // Publish test results in JUnit format
+                    junit 'tests/*.xml' // Save the JUnit test reports
+                }
             }
         }
     }
 
     post {
         always {
-            mail to: 'InsertYour@Mail.Here',
-                 subject: "Test Results: ${currentBuild.currentResult}",
-                 body: "The tests have been completed. Check the Jenkins console output for more details."
+            script {
+                // Send email notification after the build completes (success or failure)
+                emailext(
+                    subject: "Build Result: ${currentBuild.currentResult}",
+                    body: """<p>Build Status: ${currentBuild.currentResult}</p>
+                             <p>Check build details in Jenkins.</p>""",
+                    to: 'your-email@example.com',
+                    from: 'jenkins@example.com',
+                    replyTo: 'your-email@example.com',
+                    mimeType: 'text/html'
+                )
+            }
+        }
+        failure {
+            script {
+                // Additional actions on build failure (optional)
+                echo 'Build failed.'
+            }
         }
     }
 }
