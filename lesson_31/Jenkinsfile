@@ -4,34 +4,26 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Перевірте правильну гілку
                 git branch: 'homework31/lesson_31', url: 'https://github.com/Hronologiya/AQA.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'pip install -r requirements.txt'  // Перевірте наявність файлу requirements.txt
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest'  // Використовуйте команду для запуску тестів
+                sh 'pytest'
             }
         }
 
         stage('Publish Results') {
             steps {
-                junit '**/test-results/*.xml'  // Перевірте шлях до ваших тестових результатів
+                junit '**/test-results/*.xml'
             }
         }
     }
 
     post {
         always {
-            // Перевірте налаштування SMTP сервера для email
-            mail to: 'InsertYour@Mail.Here',  // Вкажіть свою електронну адресу
+            mail to: 'InsertYour@Mail.Here',
                  subject: "Build ${currentBuild.fullDisplayName}",
                  body: "Check console output at ${env.BUILD_URL} to view the results."
         }
