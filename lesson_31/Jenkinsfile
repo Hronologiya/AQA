@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://your-repo-url.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'pytest'
+            }
+        }
+        stage('Publish Results') {
+            steps {
+                junit 'reports/*.xml'
+            }
+        }
+    }
+
+    post {
+        always {
+            emailext (
+                to: 'InsertYour@Mail.Here',
+                subject: 'Build ${currentBuild.fullDisplayName}',
+                body: 'Build ${currentBuild.fullDisplayName} (${env.BUILD_URL})',
+                attachLog: true
+            )
+        }
+    }
+}
