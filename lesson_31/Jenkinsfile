@@ -4,29 +4,32 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                script {
+                    sh 'pip install -r requirements.txt'
+                }
             }
         }
+
         stage('Run Tests') {
             steps {
-                sh 'pytest'
+                script {
+                    sh 'pytest'
+                }
             }
         }
+
         stage('Publish Results') {
             steps {
-                junit 'reports/*.xml'
+                junit 'tests/results/*.xml'
             }
         }
     }
 
     post {
         always {
-            emailext (
-                to: 'InsertYour@Mail.Here',
-                subject: 'Build ${currentBuild.fullDisplayName}',
-                body: 'Build ${currentBuild.fullDisplayName} (${env.BUILD_URL})',
-                attachLog: true
-            )
+            mail to: 'InsertYour@Mail.Here',
+                 subject: "Test Results: ${currentBuild.currentResult}",
+                 body: "The tests have been completed. Check the Jenkins console output for more details."
         }
     }
 }
