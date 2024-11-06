@@ -10,19 +10,19 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt' // Замість requirements.txt використовуйте ваш файл з залежностями
+                sh 'pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest' // Або команда для запуску ваших тестів
+                sh 'pytest'
             }
         }
 
         stage('Publish Results') {
             steps {
-                junit '**/test-results/*.xml' // Замість цього використовуйте шлях до ваших результатів тестування
+                junit '**/test-results/*.xml'
             }
         }
     }
