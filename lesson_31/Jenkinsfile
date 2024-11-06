@@ -19,14 +19,14 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'pytest'
+                    sh 'pytest --junitxml=tests/results/results.xml'
                 }
             }
         }
 
         stage('Publish Results') {
             steps {
-                junit 'tests/results/*.xml'
+                junit 'tests/results/results.xml'
             }
         }
     }
