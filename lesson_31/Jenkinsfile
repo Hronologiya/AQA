@@ -1,37 +1,17 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'homework31/lesson_31', url: 'https://github.com/Hronologiya/AQA.git'
+                git branch: 'homework31', url: 'https://github.com/Hronologiya/AQA.git'
             }
         }
-
-        stage('Install Dependencies') {
+        stage('Run Jenkinsfile') {
             steps {
-                sh 'pip install -r requirements.txt'
+                script {
+                    // Ваші наступні кроки
+                }
             }
-        }
-
-        stage('Run Tests') {
-            steps {
-                sh 'pytest'
-            }
-        }
-
-        stage('Publish Results') {
-            steps {
-                junit '**/test-results/*.xml'
-            }
-        }
-    }
-
-    post {
-        always {
-            mail to: 'InsertYour@Mail.Here',
-                 subject: "Build ${currentBuild.fullDisplayName}",
-                 body: "Check console output at ${env.BUILD_URL} to view the results."
         }
     }
 }
